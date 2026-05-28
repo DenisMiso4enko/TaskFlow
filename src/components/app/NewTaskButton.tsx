@@ -1,14 +1,29 @@
 "use client";
 
-import { createTask } from "@/lib/actions/tasks";
-import { useRef } from "react";
+import { CreateTaskState, createTask } from "@/lib/actions/tasks";
+import { useActionState, useEffect, useRef } from "react";
 import Button from "@/components/ui/Button";
+import { SubmitButton } from "./SubmitButton";
 
-export default function NewTaskButton() {
+const initialState: CreateTaskState = null;
+
+export default function NewTaskButton({
+  onSuccess,
+}: {
+  onSuccess?: () => void;
+}) {
+  const [state, formAction] = useActionState(createTask, initialState);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const openModal = () => dialogRef.current?.showModal();
   const closeModal = () => dialogRef.current?.close();
+
+  useEffect(() => {
+    if (state?.ok) {
+      closeModal();
+      onSuccess?.(); // closeModal из родителя
+    }
+  }, [state, onSuccess]);
 
   return (
     <>
@@ -22,11 +37,12 @@ export default function NewTaskButton() {
       >
         <h2 className="text-lg font-semibold">New task</h2>
 
-        <form
-          action={createTask}
-          className="mt-4 flex flex-col gap-3"
-          onSubmit={() => closeModal()}
-        >
+        <form action={formAction} className="mt-4 flex flex-col gap-3">
+          {state?.ok === false && (
+            <p className="text-sm text-red-400" role="alert">
+              {state.message}
+            </p>
+          )}
           <label className="flex flex-col gap-1 text-sm">
             Title
             <input
@@ -58,9 +74,7 @@ export default function NewTaskButton() {
             <Button variant="dark" type="button" onClick={closeModal}>
               Cancel
             </Button>
-            <Button variant="primary" type="submit">
-              Create task
-            </Button>
+            <SubmitButton />
           </div>
         </form>
       </dialog>

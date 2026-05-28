@@ -1,6 +1,13 @@
-import { Priority, priorityDotClass, Task } from "@/lib/mock-tasks";
+import { CreateTaskState, deleteTask } from "@/lib/actions/tasks";
+import { priorityDotClass, Task } from "@/lib/mock-tasks";
+import { useActionState } from "react";
+import { DeleteTaskButton } from "./DeleteTaskButton";
+
+const initialState: CreateTaskState = null;
 
 export default function TaskCard({ task }: { task: Task }) {
+  const [state, formAction] = useActionState(deleteTask, initialState);
+
   return (
     <article className="rounded-lg border border-app-border bg-app-elevated p-3">
       <div className="flex gap-2">
@@ -19,6 +26,11 @@ export default function TaskCard({ task }: { task: Task }) {
           {task.assignee}
         </span>
       </div>
+      <form action={formAction}>
+        <input type="hidden" name="taskId" value={task.id} />
+        <DeleteTaskButton />
+        {state?.ok === false && <p role="alert">{state.message}</p>}
+      </form>
     </article>
   );
 }

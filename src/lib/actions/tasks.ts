@@ -4,10 +4,18 @@ import { revalidatePath } from "next/cache";
 import { API_BASE_URL } from "../constants";
 import type { Priority } from "../types";
 
-export async function createTask(formData: FormData) {
+export type CreateTaskState =
+  | { ok: true }
+  | { ok: false; message: string }
+  | null; // начальное состояние до первого submit
+
+export async function createTask(
+  _prevState: CreateTaskState,
+  formData: FormData,
+): Promise<CreateTaskState> {
   const title = String(formData.get("title") ?? "").trim();
   if (!title) {
-    throw new Error("Title is required");
+    return { ok: false, message: "Title is required" };
   }
 
   const columnId = String(formData.get("columnId") ?? "todo");
@@ -31,8 +39,31 @@ export async function createTask(formData: FormData) {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to create task");
+    return { ok: false, message: "Failed to create task. Try again." };
   }
 
   revalidatePath("/dashboard");
+  return { ok: true };
+}
+
+export async function deleteTask(
+  _prevState: CreateTaskState,
+  formData: FormData,
+): Promise<CreateTaskState> {
+  const taskId = String(formData.get("taskId") ?? "").trim();
+
+  if (!taskId) {
+    return { ok: false, message: "Task id is required" };
+  }
+
+  const response = await fetch(`${API_BASE_URL}/tasks/${taskId}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    return { ok: false, message: "Failed to delete task. Try again." };
+  }
+
+  revalidatePath("/dashboard");
+  return { ok: true };
 }
