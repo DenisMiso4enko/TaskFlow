@@ -102,7 +102,7 @@ Marketing (светлая)          App (тёмная)
 | 5.3 | `useFormStatus` — loading на кнопке Submit           | ⬜     |
 | 5.4 | Обработка ошибок формы (`useFormState` или toast)    | ⬜     |
 | 5.5 | Удаление задачи (Server Action + DELETE)             | ✅     |
-| 5.6 | Редактирование задачи (PATCH)                        | ⬜     |
+| 5.6 | Редактирование задачи (PATCH)                        | ✅     |
 
 **Навыки:** [Mutating Data](https://nextjs.org/docs/app/getting-started/mutating-data), [Server Actions](https://nextjs.org/docs/app/api-reference/functions/server-actions)
 

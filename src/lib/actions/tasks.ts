@@ -56,7 +56,9 @@ export async function deleteTask(
     return { ok: false, message: "Task id is required" };
   }
 
-  const response = await fetch(`${API_BASE_URL}/tasks/${taskId}`, {
+  const id = encodeURIComponent(taskId);
+
+  const response = await fetch(`${API_BASE_URL}/tasks/${id}`, {
     method: "DELETE",
   });
 
@@ -64,6 +66,36 @@ export async function deleteTask(
     return { ok: false, message: "Failed to delete task. Try again." };
   }
 
+  revalidatePath("/dashboard");
+  return { ok: true };
+}
+
+export async function updateTask(
+  _prevState: CreateTaskState,
+  formData: FormData,
+): Promise<CreateTaskState> {
+  const taskId = String(formData.get("taskId") ?? "").trim();
+  const title = String(formData.get("title") ?? "").trim();
+  const columnId = String(formData.get("columnId") ?? "").trim();
+  const assignee = String(formData.get("assignee") ?? "").trim();
+
+  if (!taskId) return { ok: false, message: "Task id is required" };
+  if (!title) return { ok: false, message: "Title is required" };
+
+  const patch: Record<string, unknown> = { title };
+  if (columnId) patch.columnId = columnId;
+  if (assignee) patch.assignee = assignee;
+
+  const id = encodeURIComponent(taskId);
+
+  const response = await fetch(`${API_BASE_URL}/tasks/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(patch),
+  });
+
+  if (!response.ok)
+    return { ok: false, message: "Failed to update task. Try again." };
   revalidatePath("/dashboard");
   return { ok: true };
 }

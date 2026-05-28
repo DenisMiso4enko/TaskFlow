@@ -1,7 +1,11 @@
+"use client";
+
 import { CreateTaskState, deleteTask } from "@/lib/actions/tasks";
-import { priorityDotClass, Task } from "@/lib/mock-tasks";
+import { priorityDotClass } from "@/lib/mock-tasks";
 import { useActionState } from "react";
 import { DeleteTaskButton } from "./DeleteTaskButton";
+import { EditTaskButton } from "./EditTaskButton";
+import { Task } from "@/lib/types";
 
 const initialState: CreateTaskState = null;
 
@@ -10,6 +14,7 @@ export default function TaskCard({ task }: { task: Task }) {
 
   return (
     <article className="rounded-lg border border-app-border bg-app-elevated p-3">
+      <EditTaskButton task={task} />
       <div className="flex gap-2">
         <span
           className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${priorityDotClass[task.priority]}`}
