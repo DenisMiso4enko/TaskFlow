@@ -112,10 +112,10 @@ Marketing (светлая)          App (тёмная)
 
 | #   | Задача                                                | Статус |
 | --- | ----------------------------------------------------- | ------ |
-| 6.1 | `cacheTag` / `revalidateTag` для tasks                | ⬜     |
-| 6.2 | `revalidatePath` vs `revalidateTag` — когда что       | ⬜     |
-| 6.3 | `dynamic = 'force-dynamic'` на примере одной страницы | ⬜     |
-| 6.4 | On-demand revalidation после create/update            | ⬜     |
+| 6.1 | `cacheTag` / `revalidateTag` для tasks                | ✅     |
+| 6.2 | `revalidatePath` vs `revalidateTag` — когда что       | ✅     |
+| 6.3 | `dynamic = 'force-dynamic'` на примере одной страницы | ✅     |
+| 6.4 | On-demand revalidation после create/update            | ✅     |
 
 **Навыки:** [Caching](https://nextjs.org/docs/app/getting-started/caching), [Revalidating](https://nextjs.org/docs/app/getting-started/revalidating)
 

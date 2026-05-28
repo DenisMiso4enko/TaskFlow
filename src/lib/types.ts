@@ -1,5 +1,5 @@
 export type Project = {
-  id: string;
+  id: string | number;
   name: string;
   slug: string;
   description: string;
@@ -10,7 +10,7 @@ export type Project = {
 export type Priority = "low" | "medium" | "high";
 
 export type Task = {
-  id: string;
+  id: string | number;
   title: string;
   priority: Priority;
   assignee: string;

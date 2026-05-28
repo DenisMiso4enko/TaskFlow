@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { refresh, updateTag } from "next/cache";
 import { API_BASE_URL } from "../constants";
 import type { Priority } from "../types";
 
@@ -24,7 +24,7 @@ export async function createTask(
   const projectId = String(formData.get("projectId") ?? "website-redesign");
 
   const task = {
-    id: `TF-${Date.now()}`,
+    id: Date.now(),
     title,
     columnId,
     assignee,
@@ -42,7 +42,8 @@ export async function createTask(
     return { ok: false, message: "Failed to create task. Try again." };
   }
 
-  revalidatePath("/dashboard");
+  updateTag("tasks");
+  refresh();
   return { ok: true };
 }
 
@@ -66,7 +67,8 @@ export async function deleteTask(
     return { ok: false, message: "Failed to delete task. Try again." };
   }
 
-  revalidatePath("/dashboard");
+  updateTag("tasks");
+  refresh();
   return { ok: true };
 }
 
@@ -96,6 +98,7 @@ export async function updateTask(
 
   if (!response.ok)
     return { ok: false, message: "Failed to update task. Try again." };
-  revalidatePath("/dashboard");
+  updateTag("tasks");
+  refresh();
   return { ok: true };
 }
