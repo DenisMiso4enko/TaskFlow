@@ -16,7 +16,7 @@
 | 🔄     | В процессе / частично |
 | ⬜     | Запланировано         |
 
-**Общий прогресс:** ~65% (модули 1–7 закрыты, дальше — модуль 8)
+**Общий прогресс:** ~70% (модули 1–8 закрыты, дальше — модуль 9)
 
 ---
 
@@ -138,9 +138,9 @@ Marketing (светлая)          App (тёмная)
 
 | #   | Задача                                              | Статус |
 | --- | --------------------------------------------------- | ------ |
-| 8.1 | `app/api/projects/route.ts` — прокси к Mokky        | ⬜     |
-| 8.2 | Client fetch на свой `/api/*` (когда нужен browser) | ⬜     |
-| 8.3 | Webhook-заглушка `POST /api/webhooks`               | ⬜     |
+| 8.1 | `app/api/projects/route.ts` — прокси к Mokky        | ✅     |
+| 8.2 | Client fetch на свой `/api/*` (когда нужен browser) | ✅     |
+| 8.3 | Webhook-заглушка `POST /api/webhooks`               | ✅     |
 
 **Навыки:** [Route Handlers](https://nextjs.org/docs/app/getting-started/route-handlers)
 
