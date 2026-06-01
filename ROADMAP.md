@@ -16,7 +16,7 @@
 | 🔄     | В процессе / частично |
 | ⬜     | Запланировано         |
 
-**Общий прогресс:** ~45% (модули 1–4 закрыты, модуль 5 начат)
+**Общий прогресс:** ~65% (модули 1–7 закрыты, дальше — модуль 8)
 
 ---
 
@@ -125,10 +125,10 @@ Marketing (светлая)          App (тёмная)
 
 | #   | Задача                                         | Статус |
 | --- | ---------------------------------------------- | ------ |
-| 7.1 | `metadata` / template в root layout            | 🔄     |
-| 7.2 | OG images для marketing                        | ⬜     |
-| 7.3 | `dashboard/loading.tsx`, `dashboard/error.tsx` | ⬜     |
-| 7.4 | Страница `/projects/[slug]`                    | ⬜     |
+| 7.1 | `metadata` / template в root layout            | ✅     |
+| 7.2 | OG images для marketing                        | ✅     |
+| 7.3 | `dashboard/loading.tsx`, `dashboard/error.tsx` | ✅     |
+| 7.4 | Страница `/projects/[slug]`                    | ✅     |
 
 **Навыки:** [Metadata](https://nextjs.org/docs/app/getting-started/metadata-and-og-images)
 

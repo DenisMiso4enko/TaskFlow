@@ -30,8 +30,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       >
         ← Back to blog
       </Link>
-      <time className="mt-6 block text-sm text-mkt-text-muted">{post.date}</time>
-      <h1 className="mt-2 text-4xl font-semibold tracking-tight">{post.title}</h1>
+      <time className="mt-6 block text-sm text-mkt-text-muted">
+        {post.date}
+      </time>
+      <h1 className="mt-2 text-4xl font-semibold tracking-tight">
+        {post.title}
+      </h1>
       <div className="mt-8 space-y-4 text-mkt-text-muted leading-relaxed">
         {post.content.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>

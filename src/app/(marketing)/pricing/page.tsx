@@ -1,4 +1,5 @@
 import Button from "@/components/ui/Button";
+import { Metadata } from "next";
 
 const plans = [
   {
@@ -30,6 +31,15 @@ const plans = [
     popular: false,
   },
 ];
+
+export const metadata: Metadata = {
+  title: "Pricing",
+  description: "lorem10",
+  openGraph: {
+    title: "TaskFlow Pricing",
+    description: "Plans for teams of any size",
+  },
+};
 
 export default function PricingPage() {
   return (
@@ -70,13 +80,20 @@ export default function PricingPage() {
             </p>
             <ul className="mt-6 space-y-2 text-sm text-mkt-text-muted border-t border-mkt-border pt-6">
               {plan.features.map((feature) => (
-                <li key={feature} className="py-1 border-b border-mkt-border last:border-0">
+                <li
+                  key={feature}
+                  className="py-1 border-b border-mkt-border last:border-0"
+                >
                   {feature}
                 </li>
               ))}
             </ul>
             <div className="mt-8">
-              <Button variant={plan.variant} href="/dashboard" className="w-full">
+              <Button
+                variant={plan.variant}
+                href="/dashboard"
+                className="w-full"
+              >
                 {plan.cta}
               </Button>
             </div>
