@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import KanbanBoard from "@/components/app/KanbanBoard";
 import NewTaskButton from "@/components/app/NewTaskButton";
 import TaskStats from "@/components/app/TaskStats";
@@ -33,8 +34,11 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardPage() {
+  const session = await auth();
   const [columns, tasks] = await Promise.all([apiGetColumns(), apiGetTasks()]);
   const board = buildBoardColumns(columns, tasks);
+
+  console.log("session?.user?.email", session?.user?.email);
 
   return (
     <div className="p-6">

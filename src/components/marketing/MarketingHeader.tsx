@@ -15,7 +15,7 @@ export default function MarketingHeader() {
           <NavLink href="/blog">Blog</NavLink>
         </nav>
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="small" href="/dashboard">
+          <Button variant="ghost" size="small" href="/login">
             Sign in
           </Button>
           <Button variant="primary" size="small" href="/dashboard">
