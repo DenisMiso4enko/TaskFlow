@@ -5,6 +5,7 @@ import TaskStats from "@/components/app/TaskStats";
 import { apiGetColumns, apiGetTasks } from "@/lib/api";
 import { buildBoardColumns } from "@/lib/board";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Board",
@@ -35,10 +36,12 @@ export const metadata: Metadata = {
 
 export default async function DashboardPage() {
   const session = await auth();
+  if (!session) {
+    redirect("/login");
+  }
+
   const [columns, tasks] = await Promise.all([apiGetColumns(), apiGetTasks()]);
   const board = buildBoardColumns(columns, tasks);
-
-  console.log("session?.user?.email", session?.user?.email);
 
   return (
     <div className="p-6">
@@ -46,6 +49,8 @@ export default async function DashboardPage() {
 
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-xl font-semibold">Board</h1>
+        <span>привет, {session.user?.name ?? session.user?.email}</span>
+        {session.user?.role === "owner" && <span className="...">Owner</span>}
         <NewTaskButton />
       </div>
 

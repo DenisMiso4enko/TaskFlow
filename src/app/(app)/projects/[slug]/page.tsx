@@ -1,7 +1,8 @@
+import { auth } from "@/auth";
 import { apiGetProjects, apiGetTasks } from "@/lib/api";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -32,6 +33,11 @@ export async function generateMetadata({
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
+  const session = await auth();
+  if (!session) {
+    redirect("/login");
+  }
+
   const { slug } = await params;
   const [projects, tasks] = await Promise.all([
     apiGetProjects(),

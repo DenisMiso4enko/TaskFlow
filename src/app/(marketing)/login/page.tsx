@@ -1,6 +1,11 @@
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const session = await auth();
+
+  if (session) redirect("/dashboard");
+
   async function login(formData: FormData) {
     "use server";
     await signIn("credentials", {

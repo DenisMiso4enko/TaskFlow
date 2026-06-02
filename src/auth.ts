@@ -19,11 +19,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           email === process.env.DEMO_EMAIL &&
           password === process.env.DEMO_PASSWORD
         ) {
-          return { id: "1", email: String(email), name: "Dev" };
+          return {
+            id: "1",
+            email: String(email),
+            name: "Dev",
+            role: process.env.DEMO_ROLE ?? "member",
+          };
         }
 
         return null;
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) token.role = user.role;
+      return token;
+    },
+    async session({ session, token }) {
+      // пробрасываем из токена в сессию
+      if (session.user) session.user.role = token.role as string | undefined;
+      return session;
+    },
+  },
 });
